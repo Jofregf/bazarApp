@@ -9,22 +9,22 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Cliente {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_cliente;
-    private String nombre;
-    private String apellido;
+    private Long id_client;
+    private String name;
+    private String lastname;
     private String dni;
 
-    public Cliente() {
+    public Client() {
     }
 
-    public Cliente(Long id_cliente, String nombre, String apellido, String dni) {
-        this.id_cliente = id_cliente;
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Client(Long id_client, String name, String lastname, String dni) {
+        this.id_client = id_client;
+        this.name = name;
+        this.lastname = lastname;
         this.dni = dni;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.bazarApp.controller;
 
-import com.example.bazarApp.model.Producto;
-import com.example.bazarApp.service.IProductoService;
+import com.example.bazarApp.model.Product;
+import com.example.bazarApp.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,37 +13,37 @@ import java.util.List;
 public class ProductoController {
 
     @Autowired
-    private IProductoService productoService;
+    private IProductService productService;
 
     @PostMapping("/productos/crear")
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-        productoService.crearProducto(producto);
-        return new ResponseEntity<>(producto, HttpStatus.OK);
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        productService.addProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping("/productos")
-    public List<Producto> listaProductos() {
-        return productoService.listaProducto();
+    public List<Product> productsList() {
+        return productService.productList();
     }
 
-    @GetMapping("/productos/{codigo_producto}")
-    public ResponseEntity<Producto> mostrarProducto(@PathVariable Long codigo_producto) {
-        Producto producto = productoService.traerProducto(codigo_producto);
+    @GetMapping("/productos/{product_code}")
+    public ResponseEntity<Product> showProduct(@PathVariable Long product_code) {
+        Product producto = productService.getProduct(product_code);
         return new ResponseEntity<>(producto, HttpStatus.OK);
     }
 
-    @DeleteMapping("/productos/eliminar/{codigo_producto}")
-    public ResponseEntity<String> eliminarProducto(@PathVariable Long codigo_producto) {
-        productoService.eliminarProducto(codigo_producto);
+    @DeleteMapping("/productos/eliminar/{product_code}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long product_code) {
+        productService.deleteProduct(product_code);
         return new ResponseEntity<>("Producto eliminado exitosamente", HttpStatus.OK);
     }
 
-    @PutMapping("/productos/editar/{codigo_producto}")
-    public ResponseEntity<Producto> editarProducto(@PathVariable Long codigo_producto,
-                                                   @RequestBody Producto produ) {
+    @PutMapping("/productos/editar/{product_code}")
+    public ResponseEntity<Product> editProduct(@PathVariable Long product_code,
+                                               @RequestBody Product product) {
 
-        productoService.editarProducto(codigo_producto, produ);
-        Producto producto = this.mostrarProducto(codigo_producto).getBody();
-        return new ResponseEntity<>(producto, HttpStatus.OK);
+        productService.editProduct(product_code, product);
+        Product edited_product = this.showProduct(product_code).getBody();
+        return new ResponseEntity<>(edited_product, HttpStatus.OK);
     }
 }
