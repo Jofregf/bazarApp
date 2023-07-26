@@ -27,4 +27,5 @@ public class Client {
         this.lastname = lastname;
         this.dni = dni;
     }
+
 }
