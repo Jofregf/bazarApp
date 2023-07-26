@@ -40,14 +40,12 @@ public class ClientService implements IClientService {
     @Override
     public Client editClient(Long id_client, Client client) {
         Client clientToEdit = this.getClient(id_client);
-        System.out.println(clientToEdit);
         clientToEdit.setId_client(id_client);
         clientToEdit.setName(client.getName());
         clientToEdit.setLastname(client.getLastname());
         clientToEdit.setDni(client.getDni());
 
         this.addClient(clientToEdit);
-        System.out.println(clientToEdit);
         return clientToEdit;
     }
 }

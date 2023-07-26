@@ -43,7 +43,6 @@ public class ClientController {
                                              @RequestBody Client client) {
         clientService.editClient(id_client, client);
         Client editedClient = this.showClient(id_client).getBody();
-        System.out.println(editedClient);
         return new ResponseEntity<>(editedClient, HttpStatus.OK);
     }
 

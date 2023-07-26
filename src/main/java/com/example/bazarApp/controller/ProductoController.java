@@ -28,8 +28,8 @@ public class ProductoController {
 
     @GetMapping("/productos/{product_code}")
     public ResponseEntity<Product> showProduct(@PathVariable Long product_code) {
-        Product producto = productService.getProduct(product_code);
-        return new ResponseEntity<>(producto, HttpStatus.OK);
+        Product product = productService.getProduct(product_code);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @DeleteMapping("/productos/eliminar/{product_code}")

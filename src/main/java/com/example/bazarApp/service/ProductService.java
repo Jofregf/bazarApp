@@ -48,8 +48,8 @@ public class ProductService implements IProductService {
         productToEdit.setCost(product.getCost());
         productToEdit.setStock_available(product.getStock_available());
         productToEdit.setProduct_code(product_code);
+
         this.addProduct(productToEdit);
-        System.out.println(productToEdit.getProduct_code());
         return productToEdit;
     }
 }
