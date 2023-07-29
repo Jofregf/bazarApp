@@ -15,4 +15,14 @@ public interface IProductService {
     public void deleteProduct(Long product_code);
 
     public Product editProduct(Long product_code, Product product);
+
+    public List<Product> getLackStock();
+
+    public Double getProductCost(Long product_code);
+
+    public Boolean haveStock(Long product_code);
+
+    public void discountStock(Long product_code);
+
+    public List<Product> onlyProductWithStock(Long[] product_code);
 }

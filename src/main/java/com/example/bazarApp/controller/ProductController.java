@@ -46,4 +46,22 @@ public class ProductController {
         Product edited_product = this.showProduct(product_code).getBody();
         return new ResponseEntity<>(edited_product, HttpStatus.OK);
     }
+
+    @GetMapping("/productos/revisar_stock")
+    public List<Product> getLackStock() {
+        return productService.getLackStock();
+    }
+
+    @GetMapping("/productos/{product_code}/costo")
+    public ResponseEntity<String> getProductCost(@PathVariable Long product_code) {
+        Double cost = productService.getProductCost(product_code);
+        return new ResponseEntity<>("El costo del producto es " + cost, HttpStatus.OK);
+    }
+
+    @GetMapping("/productos/{product_code}/sin_stock")
+    public ResponseEntity<String> haveStock(@PathVariable Long product_code) {
+        Boolean haveStock = productService.haveStock(product_code);
+        return new ResponseEntity<>("El producto con ID " + product_code + " tiene stock? " + haveStock,
+                                    HttpStatus.OK);
+    }
 }

@@ -5,6 +5,7 @@ import com.example.bazarApp.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -51,5 +52,70 @@ public class ProductService implements IProductService {
 
         this.addProduct(productToEdit);
         return productToEdit;
+    }
+
+    @Override
+    public List<Product> getLackStock() {
+        List<Product> productsList = this.productList();
+        List<Product> stocksList = new ArrayList<>();
+        for(Product product:productsList) {
+            if(product.getStock_available() < 5) {
+                stocksList.add(product);
+            }
+        }
+        return stocksList;
+    }
+
+    @Override
+    public Double getProductCost(Long product_code) {
+        Product product = this.getProduct(product_code);
+        return product.getCost();
+    }
+
+    @Override
+    public Boolean haveStock(Long product_code) {
+        Product product = this.getProduct(product_code);
+        Boolean haveStock =  true;
+        if(product.getStock_available() <= 0) {
+            haveStock = false;
+        }
+        return haveStock;
+    }
+
+    @Override
+    public void discountStock(Long product_code) {
+        List<Product> productsList = this.productList();
+        Double stock = 0.0;
+        Product produ = new Product();
+        for(Product product:productsList) {
+            if(product.getProduct_code().equals(product_code)) {
+                stock = product.getStock_available() - 1;
+                produ.setStock_available(stock);
+            }
+        }
+        this.editProduct(product_code, produ);
+    }
+
+    @Override
+    public List<Product> onlyProductWithStock(Long[] product_code) {
+        List<Product> productsList = new ArrayList<>();
+        List<Product> updatedList = new ArrayList<>();
+        Long code;
+        Long idWithStock;
+        Boolean dontInclude = false;
+        for(Long singleCode:product_code) {
+            code = singleCode;
+            productsList.add(this.getProduct(code));
+        }
+        for(Product product:productsList) {
+            if(product.getStock_available()  <= 0) {
+                dontInclude = true;
+            }
+            else {
+                idWithStock = product.getProduct_code();
+                updatedList.add(this.getProduct(idWithStock));
+            }
+        }
+        return updatedList;
     }
 }
