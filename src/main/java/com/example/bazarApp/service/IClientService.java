@@ -14,5 +14,7 @@ public interface IClientService {
 
     public void deleteClient(Long id_client);
 
-    public Client editClient(Long id_client, Client client);
+    public Client editClient(Client client);
+
+    public Client editClient(Long id_client, Long new_id, String new_name, String new_lastname, String new_dni);
 }

@@ -40,11 +40,21 @@ public class ProductController {
 
     @PutMapping("/productos/editar/{product_code}")
     public ResponseEntity<Product> editProduct(@PathVariable Long product_code,
-                                               @RequestBody Product product) {
+                                               @RequestParam(required = false, name = "new_code") Long new_code,
+                                               @RequestParam(required = false, name = "name") String new_name,
+                                               @RequestParam(required = false, name = "brand") String new_brand,
+                                               @RequestParam(required = false, name = "cost") Double new_cost,
+                                               @RequestParam(required = false, name = "stock_available") Double new_stock){
 
-        productService.editProduct(product_code, product);
+        productService.editProduct(product_code, new_code, new_name, new_brand, new_cost, new_stock);
         Product edited_product = this.showProduct(product_code).getBody();
         return new ResponseEntity<>(edited_product, HttpStatus.OK);
+    }
+
+    @PutMapping("/productos/editar")
+    public ResponseEntity<Product> editProduct(@RequestBody Product product) {
+        productService.editProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping("/productos/revisar_stock")

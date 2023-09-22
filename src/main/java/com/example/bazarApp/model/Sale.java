@@ -17,7 +17,10 @@ public class Sale {
     private LocalDate sale_date;
     private Double total;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name="sale_products",
+            joinColumns = @JoinColumn(name = "sale_code", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "product_code"))
     private List<Product> productsList;
     @OneToOne
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")

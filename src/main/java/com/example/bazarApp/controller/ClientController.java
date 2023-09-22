@@ -40,10 +40,20 @@ public class ClientController {
 
     @PutMapping("/clientes/editar/{id_client}")
     public ResponseEntity<Client> editClient(@PathVariable Long id_client,
-                                             @RequestBody Client client) {
-        clientService.editClient(id_client, client);
-        Client editedClient = this.showClient(id_client).getBody();
-        return new ResponseEntity<>(editedClient, HttpStatus.OK);
+                                             @RequestParam(required = false, name = "new_id") Long new_id,
+                                             @RequestParam(required = false, name = "name") String new_name,
+                                             @RequestParam(required = false, name = "lastname") String new_lastname,
+                                             @RequestParam(required = false, name = "dni") String new_dni) {
+        clientService.editClient(id_client, new_id, new_name, new_lastname, new_dni);
+        Client client = this.showClient(id_client).getBody();
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @PutMapping("/clientes/editar")
+    public ResponseEntity<Client> editClient(@RequestBody Client client) {
+        this.showClient(client.getId_client());
+        Client editedclient = clientService.editClient(client);
+        return new ResponseEntity<>(editedclient, HttpStatus.OK);
     }
 
 }

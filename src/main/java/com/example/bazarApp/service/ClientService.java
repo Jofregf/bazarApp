@@ -38,14 +38,18 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Client editClient(Long id_client, Client client) {
-        Client clientToEdit = this.getClient(id_client);
-        clientToEdit.setId_client(id_client);
-        clientToEdit.setName(client.getName());
-        clientToEdit.setLastname(client.getLastname());
-        clientToEdit.setDni(client.getDni());
+    public Client editClient(Client client) {
+        return this.addClient(client);
+    }
 
-        this.addClient(clientToEdit);
-        return clientToEdit;
+    @Override
+    public Client editClient(Long id_client, Long new_id, String new_name, String new_lastname, String new_dni) {
+        Client client = this.getClient(id_client);
+        client.setId_client(new_id);
+        client.setName(new_name);
+        client.setLastname(new_lastname);
+        client.setDni(new_dni);
+        this.addClient(client);
+        return client;
     }
 }

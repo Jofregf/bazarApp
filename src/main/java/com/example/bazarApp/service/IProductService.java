@@ -14,7 +14,10 @@ public interface IProductService {
 
     public void deleteProduct(Long product_code);
 
-    public Product editProduct(Long product_code, Product product);
+    public Product editProduct(Product product);
+
+    public Product editProduct(Long product_code, Long new_code, String new_name, String new_brand,
+                               Double new_cost, Double new_stock);
 
     public List<Product> getLackStock();
 
